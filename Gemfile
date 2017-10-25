@@ -15,7 +15,7 @@ gem 'puma', '~> 3.7'
 # Use pry to debug :-)
 gem 'pry-rails'
 # Use devise fror User Auth
-gem 'devise'
+gem 'bcrypt'
 
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
