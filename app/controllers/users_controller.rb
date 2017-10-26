@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
   before_action :set_user, only: [:show, :update, :destroy]
-  # before_action :restrict_access
+  before_action :restrict_access
   # skip_before_action :verify_authenticity_token
 
   # GET /users
@@ -57,9 +57,9 @@ class UsersController < ApplicationController
       params.require(:post).permit(:name, :username, :email, :password_digest)
     end
 
-    # def restrict_access
-    #   authenticate_or_request_with_http_token do |token, options|
-    #   ApiKey.exists?(access_token: token)
-    #   end
-    # end
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+      ApiKey.exists?(access_token: token)
+      end
+    end
 end
