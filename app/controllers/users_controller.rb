@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   # POST /users
   def create()
     @user = User.create(params.require(:user).permit(:name, :username, :email, :password_digest))
+    @user.password = @user.password_digest
     if @user.save
       render json: @user, status: :created, location: @user
     else
