@@ -12,11 +12,20 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+   @user = User.find_by(:email => params[:email])
+   if @user.authenticate(params[:password_digest])
+     @user = User.find_by(:email => params[:email])
+     render json: @user
+   end
   end
 
+  # def login
+    # @user = User.find_by(params.require(:user).permit(:email, :password_digest))
+  #   render json: @user
+  # end
+
   # POST /users
-  def create()
+  def create
     @user = User.create(params.require(:user).permit(:name, :username, :email, :password_digest))
     @user.password = @user.password_digest
     if @user.save
