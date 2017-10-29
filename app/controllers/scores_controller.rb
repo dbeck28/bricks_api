@@ -1,4 +1,5 @@
 class ScoresController < ApplicationController
+  include ActionController::HttpAuthentication::Token::ControllerMethods
   before_action :set_score, only: [:show, :update, :destroy]
 
   # GET /scores
@@ -15,13 +16,15 @@ class ScoresController < ApplicationController
 
   # POST /scores
   def create
-    @score = Score.new(score_params)
-
-    if @score.save
-      render json: @score, status: :created, location: @score
-    else
-      render json: @score.errors, status: :unprocessable_entity
-    end
+    params.permit!
+    @score = Score.new(params[:score_params])
+    @score.user_id = params["user_id"]
+    @score.score = params["score"]
+    @score.save
+    render json: @score, status: :created, location: @score
+    # else
+    #   render json: @score.errors, status: :unprocessable_entity
+    # end
   end
 
   # PATCH/PUT /scores/1
@@ -44,8 +47,12 @@ class ScoresController < ApplicationController
       @score = Score.find(params[:id])
     end
 
+    def post_params
+      params.require(:post).permit!(:score, :user_id)
+    end
+
     # Only allow a trusted parameter "white list" through.
     def score_params
-      params.fetch(:score, {})
+      params.fetch(:score, {}).permit(:score, :user_id)
     end
 end
