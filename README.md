@@ -1,24 +1,5 @@
-# README
+This Rails API allows you to access an API to be consumed by the BreakoutX application.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Allows users to incorporate a coin feature to create virtual arcades in Swift 3.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**An api key must be created and incorporated in the Swift app to properly connect the API. There is a model for the key in the models folder of the Rails app.
