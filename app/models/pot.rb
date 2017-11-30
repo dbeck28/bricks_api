@@ -1,0 +1,3 @@
+class Pot < ApplicationRecord
+
+end

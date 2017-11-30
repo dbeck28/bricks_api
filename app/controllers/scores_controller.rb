@@ -55,4 +55,26 @@ class ScoresController < ApplicationController
     def score_params
       params.fetch(:score, {}).permit(:score, :user_id)
     end
+private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_pot
+      @pot = Pot.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def pot_params
+      params.fetch(:pot, {})
+    end
+
+
+
+    def post_params
+      params.require(:post).permit(:value)
+    end
+
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+      ApiKey.exists?(access_token: token)
+      end
+    end
 end
